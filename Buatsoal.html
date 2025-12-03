@@ -1,20 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-
-  <head>
-    <meta charset="UTF-8">
-    <title>Buatsoal</title>
-    
-
-  </head>
-    
-  <body>
-  <!DOCTYPE html>
-<html>
 <head>
-<meta charset="UTF-8">
-<title>Buat Soal</title>
+  <meta charset="UTF-8">
+  <title>Buat Soal</title>
 </head>
+
 <body>
 
 <h2>Buat Soal Baru</h2>
@@ -36,6 +26,7 @@
 
 <button onclick="simpanSoal()">Simpan Soal</button>
 
+<!-- =================== SCRIPT FIREBASE DI BAWAH SINI =================== -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
   import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
@@ -46,7 +37,7 @@
     projectId: "buat-atau-kerjakan-soal",
     storageBucket: "buat-atau-kerjakan-soal.appspot.com",
     messagingSenderId: "568232242096",
-    appId: "1:568232242096:web:9fba... (isi punyamu lengkap)"
+    appId: "1:568232242096:web:9fbabea62e4812d8d1b196"   <!-- ganti dengan punyamu lengkap -->
   };
 
   const app = initializeApp(firebaseConfig);
@@ -59,17 +50,18 @@
       b: document.getElementById("b").value,
       c: document.getElementById("c").value,
       d: document.getElementById("d").value,
-      benar: document.getElementById("benar").value
+      benar: document.getElementById("benar").value.toUpperCase()
     };
 
-    const docRef = await addDoc(collection(db, "bank_soal"), data);
-    alert("Soal berhasil disimpan! ID: " + docRef.id);
+    try {
+      const docRef = await addDoc(collection(db, "bank_soal"), data);
+      alert("Soal berhasil disimpan! ID: " + docRef.id);
+    } catch (e) {
+      alert("Gagal menyimpan: " + e);
+    }
   }
 </script>
+<!-- =================== SCRIPT FIREBASE SAMPAI SINI =================== -->
 
 </body>
-</html>
-    
-  </body>
-  
 </html>
