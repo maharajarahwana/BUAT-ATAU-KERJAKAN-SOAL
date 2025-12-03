@@ -1,35 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Buat Soal</title>
-</head>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
 
-<body>
-
-<h2>Buat Soal Baru</h2>
-
-<label>Soal:</label><br>
-<textarea id="soal" rows="4" cols="40"></textarea><br><br>
-
-<label>Pilihan A:</label><br>
-<input id="a"><br>
-<label>Pilihan B:</label><br>
-<input id="b"><br>
-<label>Pilihan C:</label><br>
-<input id="c"><br>
-<label>Pilihan D:</label><br>
-<input id="d"><br><br>
-
-<label>Jawaban benar (A/B/C/D):</label><br>
-<input id="benar"><br><br>
-
-<button onclick="simpanSoal()">Simpan Soal</button>
-
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-  import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
+<script>
   const firebaseConfig = {
     apiKey: "AIzaSyDPhuVkDqkfqmMoCjLahXM2cjQpKeShg9I",
     authDomain: "buat-atau-kerjakan-soal.firebaseapp.com",
@@ -39,8 +11,8 @@
     appId: "1:568232242096:web:9fbabea62e4812d8d1b196"
   };
 
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
 
   async function simpanSoal() {
     const data = {
@@ -53,13 +25,10 @@
     };
 
     try {
-      const docRef = await addDoc(collection(db, "bank_soal"), data);
+      const docRef = await db.collection("bank_soal").add(data);
       alert("Soal berhasil disimpan! ID: " + docRef.id);
     } catch (err) {
       alert("Error: " + err);
     }
   }
 </script>
-
-</body>
-</html>
