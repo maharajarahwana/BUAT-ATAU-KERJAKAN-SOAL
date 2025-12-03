@@ -43,19 +43,18 @@
   const db = getFirestore(app);
 
   async function simpanSoal() {
-    try {
-      const data = {
-        soal: document.getElementById("soal").value,
-        a: document.getElementById("a").value,
-        b: document.getElementById("b").value,
-        c: document.getElementById("c").value,
-        d: document.getElementById("d").value,
-        benar: document.getElementById("benar").value.toUpperCase()
-      };
+    const data = {
+      soal: document.getElementById("soal").value,
+      a: document.getElementById("a").value,
+      b: document.getElementById("b").value,
+      c: document.getElementById("c").value,
+      d: document.getElementById("d").value,
+      benar: document.getElementById("benar").value.toUpperCase()
+    };
 
+    try {
       const docRef = await addDoc(collection(db, "bank_soal"), data);
       alert("Soal berhasil disimpan! ID: " + docRef.id);
-
     } catch (err) {
       alert("Error: " + err);
     }
