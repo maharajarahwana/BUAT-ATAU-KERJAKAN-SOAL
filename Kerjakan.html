@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Buatsoal</title>
+    
+
+  </head>
+    
+  <body>
+  <!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Kerjakan Soal</title>
+</head>
+<body>
+
+<h2>Kerjakan Soal</h2>
+
+<label>Masukkan ID Soal:</label><br>
+<input id="idSoal">
+<button onclick="ambilSoal()">Ambil Soal</button>
+
+<div id="tampil"></div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDPhuVkDqkfqmMoCjLahXM2cjQpKeShg9I",
+    authDomain: "buat-atau-kerjakan-soal.firebaseapp.com",
+    projectId: "buat-atau-kerjakan-soal",
+    storageBucket: "buat-atau-kerjakan-soal.appspot.com",
+    messagingSenderId: "568232242096",
+    appId: "1:568232242096:web:9fba..."   // isi lengkap milikmu
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  async function ambilSoal() {
+    const id = document.getElementById("idSoal").value;
+    const ref = doc(db, "bank_soal", id);
+    const snap = await getDoc(ref);
+
+    if (!snap.exists()) {
+      alert("Soal tidak ditemukan!");
+      return;
+    }
+
+    const d = snap.data();
+    document.getElementById("tampil").innerHTML =
+      `<p>${d.soal}</p>
+       <button onclick="jawab('A','${d.benar}')">A. ${d.a}</button><br>
+       <button onclick="jawab('B','${d.benar}')">B. ${d.b}</button><br>
+       <button onclick="jawab('C','${d.benar}')">C. ${d.c}</button><br>
+       <button onclick="jawab('D','${d.benar}')">D. ${d.d}</button>`;
+  }
+
+  function jawab(pilihan, kunci) {
+    if (pilihan === kunci) alert("Benar!");
+    else alert("Salah!");
+  }
+</script>
+
+</body>
+</html>
+    
+  </body>
+  
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Buatsoal</title>
+    
+
+  </head>
+    
+  <body>
+  <!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Buat Soal</title>
+</head>
+<body>
+
+<h2>Buat Soal Baru</h2>
+
+<label>Soal:</label><br>
+<textarea id="soal" rows="4" cols="40"></textarea><br><br>
+
+<label>Pilihan A:</label><br>
+<input id="a"><br>
+<label>Pilihan B:</label><br>
+<input id="b"><br>
+<label>Pilihan C:</label><br>
+<input id="c"><br>
+<label>Pilihan D:</label><br>
+<input id="d"><br><br>
+
+<label>Jawaban benar (A/B/C/D):</label><br>
+<input id="benar"><br><br>
+
+<button onclick="simpanSoal()">Simpan Soal</button>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDPhuVkDqkfqmMoCjLahXM2cjQpKeShg9I",
+    authDomain: "buat-atau-kerjakan-soal.firebaseapp.com",
+    projectId: "buat-atau-kerjakan-soal",
+    storageBucket: "buat-atau-kerjakan-soal.appspot.com",
+    messagingSenderId: "568232242096",
+    appId: "1:568232242096:web:9fba... (isi punyamu lengkap)"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  async function simpanSoal() {
+    const data = {
+      soal: document.getElementById("soal").value,
+      a: document.getElementById("a").value,
+      b: document.getElementById("b").value,
+      c: document.getElementById("c").value,
+      d: document.getElementById("d").value,
+      benar: document.getElementById("benar").value
+    };
+
+    const docRef = await addDoc(collection(db, "bank_soal"), data);
+    alert("Soal berhasil disimpan! ID: " + docRef.id);
+  }
+</script>
+
+</body>
+</html>
+    
+  </body>
+  
+</html>
