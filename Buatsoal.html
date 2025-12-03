@@ -26,7 +26,6 @@
 
 <button onclick="simpanSoal()">Simpan Soal</button>
 
-<!-- =================== SCRIPT FIREBASE DI BAWAH SINI =================== -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
   import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
@@ -44,24 +43,24 @@
   const db = getFirestore(app);
 
   async function simpanSoal() {
-    const data = {
-      soal: document.getElementById("soal").value,
-      a: document.getElementById("a").value,
-      b: document.getElementById("b").value,
-      c: document.getElementById("c").value,
-      d: document.getElementById("d").value,
-      benar: document.getElementById("benar").value.toUpperCase()
-    };
-
     try {
+      const data = {
+        soal: document.getElementById("soal").value,
+        a: document.getElementById("a").value,
+        b: document.getElementById("b").value,
+        c: document.getElementById("c").value,
+        d: document.getElementById("d").value,
+        benar: document.getElementById("benar").value.toUpperCase()
+      };
+
       const docRef = await addDoc(collection(db, "bank_soal"), data);
       alert("Soal berhasil disimpan! ID: " + docRef.id);
-    } catch (e) {
-      alert("Gagal menyimpan: " + e);
+
+    } catch (err) {
+      alert("Error: " + err);
     }
   }
 </script>
-<!-- =================== SCRIPT FIREBASE SAMPAI SINI =================== -->
 
 </body>
 </html>
